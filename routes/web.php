@@ -20,23 +20,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/create', [App\Http\Controllers\HomeController::class, 'create'])->name('create');
 
 
 Route::get('/archives/',function(){
     return view('archieves.index');
 });
 
-Route::get('/archives/{category}',function($category){
-    return view('category',['category'=>$category]);
-});
 
-Route::get('/join/',function(){
-    return '入会申し込み完了';
-});
-
-Route::get('/{id}/',function($id){
-    return $id.'のページ';
-});
-
-Route::get('/sum/{x}/{y}/','App\Http\Controllers\MahController@sum');
