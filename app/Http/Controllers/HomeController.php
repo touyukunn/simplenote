@@ -22,8 +22,13 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
-        return view('home');
+    {   
+
+        $user = \Auth::user();
+
+        $memos = Memo::where('user_id',$user['id'])->where('status',1)->orderBy('updated_at','DESC')->get();
+        // dd($memos);
+        return view('home',compact('user','memos'));
     }
 
 
@@ -53,7 +58,28 @@ class HomeController extends Controller
         // リダイレクト処理
         return redirect()->route('home');
     }
+
+    public function edit($id){
+        // 該当するIDのメモをデータベースから取得
+        $user = \Auth::user();
+        $memo = Memo::where('status', 1)->where('id', $id)->where('user_id', $user['id'])
+          ->first();
+          $memos = Memo::where('user_id',$user['id'])->where('status',1)->orderBy('updated_at','DESC')->get();
+          // dd($memo);
+        //取得したメモをViewに渡す
+        return view('edit',compact('memo','user','memos'));
+    }
     
+    public function update(Request $request,$id){
+        
+        $inputs=$request->all();
+        // dd($inputs);
+         Memo::where('id',$id)->update(['content'=>$inputs['content']]);
+
+        // リダイレクト処理
+        return redirect()->route('home');
+
+    }
    
 }
 
