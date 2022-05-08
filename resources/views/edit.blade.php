@@ -7,7 +7,7 @@
         <div class="card-header">メモ編集</div>
         <form method='POST' action="/delete/{{$memo['id']}}" id='delete-form'>
              @csrf
-             <button><i id='delete-button' class="fas fa-trash"></i></button>
+             <button class='p-0' style="border:none"><i id='delete-button' class="fas fa-trash"></i></button>
         </form>
         <div class="card-body">
             <form method='POST' action="{{route('update',['id'=>$memo['id']])}}">

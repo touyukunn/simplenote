@@ -88,7 +88,7 @@ class HomeController extends Controller
          Memo::where('id',$id)->update(['content'=>$inputs['content'],'tag_id'=>$inputs['tag_id']]);
         //  dd($inputs);
         // リダイレクト処理
-        return redirect()->route('home');
+        return redirect()->route('index');
 
     }
 
